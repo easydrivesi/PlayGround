@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="sl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Radio Slovenija — Internet Radio Player</title>
+<meta name="description" content="Poslušaj vse slovenske radijske postaje v živo. Listen to all Slovenian radio stations live." />
+<link rel="manifest" href="manifest.json" />
+<meta name="theme-color" content="#0b1020" />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📻</text></svg>" />
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">
+    <span class="logo" aria-hidden="true">📻</span>
+    <div>
+      <h1>Radio <span>Slovenija</span></h1>
+      <p id="stationCount">Nalaganje postaj… / Loading stations…</p>
+    </div>
+  </div>
+  <div class="top-actions">
+    <button id="favToggle" class="chip" aria-pressed="false" title="Prikaži samo priljubljene">★ Priljubljene</button>
+    <button id="installBtn" class="chip hidden" title="Install app">⬇ Namesti</button>
+  </div>
+</header>
+
+<section class="controls">
+  <div class="search-wrap">
+    <span aria-hidden="true">🔍</span>
+    <input id="search" type="search" placeholder="Išči postajo… npr. Val 202, rock, Maribor" autocomplete="off" />
+  </div>
+  <div class="filters">
+    <select id="tagFilter" aria-label="Filter po zvrsti">
+      <option value="">Vse zvrsti / All genres</option>
+    </select>
+    <select id="sort" aria-label="Razvrsti">
+      <option value="votes">★ Najbolj priljubljene</option>
+      <option value="name">A–Ž po imenu</option>
+      <option value="bitrate">⬆ Najvišja kakovost</option>
+    </select>
+    <label class="check"><input type="checkbox" id="hideBroken" checked /> Skrij nedelujoče</label>
+  </div>
+  <p id="status" class="status" role="status">Povezovanje z radijskim imenikom…</p>
+</section>
+
+<main>
+  <div id="grid" class="grid" aria-live="polite"></div>
+</main>
+
+<footer class="foot">
+  <p>Vir postaj: <a href="https://www.radio-browser.info" target="_blank" rel="noopener">Radio Browser</a> (odprta skupnost) + ročno preverjen seznam. Vsi tokovi predvajajo lastniki postaj.</p>
+</footer>
+
+<div class="player" id="player" aria-label="Predvajalnik">
+  <img id="pArt" alt="" src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📻</text></svg>" />
+  <div class="p-meta">
+    <strong id="pName">Izberi postajo / Pick a station</strong>
+    <span id="pTags">—</span>
+    <div class="eq" id="eq" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+  </div>
+  <div class="p-btns">
+    <button id="pFav" title="Dodaj med priljubljene">☆</button>
+    <button id="pPlay" class="play" title="Predvajaj / Ustavi">▶</button>
+  </div>
+  <div class="p-vol">
+    <button id="pMute" title="Zvok">🔊</button>
+    <input id="pVol" type="range" min="0" max="100" value="90" aria-label="Glasnost" />
+  </div>
+  <a id="pHome" href="#" target="_blank" rel="noopener" class="hidden">↗ Spletna stran</a>
+  <span id="pSpinner" class="spinner hidden" aria-hidden="true"></span>
+</div>
+
+<audio id="audio" preload="none" crossorigin="anonymous"></audio>
+<script src="stations.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
